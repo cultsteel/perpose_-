@@ -2,18 +2,12 @@
 <html lang="en">
 <head>
 <meta charset="UTF-8">
-
-<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Bhakti ❤️ Omkar</title>
 
 <link href="https://fonts.googleapis.com/css2?family=Dancing+Script:wght@600&display=swap" rel="stylesheet">
 
 <style>
-:root{
---vh: 1vh;
-}
-
 body{
 margin:0;
 font-family:'Dancing Script',cursive;
@@ -21,67 +15,56 @@ background:black;
 color:white;
 overflow:hidden;
 text-align:center;
--webkit-tap-highlight-color: transparent;
 }
 
-/* LOCK */
+/* LOCK SCREEN */
 #lockScreen{
-height:calc(var(--vh)*100);
+height:100vh;
 display:flex;
 flex-direction:column;
 justify-content:center;
 align-items:center;
-padding:20px;
 }
 
-/* INPUT + BUTTON */
 input{
-padding:14px;
+padding:12px;
 border-radius:20px;
 border:none;
-margin-top:12px;
+margin-top:10px;
 font-size:18px;
-width:70%;
-max-width:280px;
 }
 
 button{
-padding:14px 32px;
+padding:12px 30px;
 border-radius:30px;
 border:none;
 margin-top:15px;
 font-size:18px;
 cursor:pointer;
-min-width:120px;
 }
 
-/* FIRST TEXT */
-#typing{
-font-size:clamp(1.8rem,6vw,3rem);
-margin-top:28vh;
-z-index:10;
-position:relative;
-}
+#mainSite{display:none}
+#typing{font-size:2.8em;margin-top:28vh}
 
-/* SLIDESHOW — PERFECT RATIO */
+/* SLIDESHOW */
 .slideshow{
 position:fixed;
 top:0;
 left:0;
 width:100vw;
-height:calc(var(--vh)*100);
+height:100vh;
 z-index:-1;
 overflow:hidden;
 }
 
-.slide{
+.slideshow img{
 position:absolute;
 top:0;
 left:0;
 width:100%;
 height:100%;
-background-size:cover;
-background-position:center;
+object-fit:cover;
+object-position:center;
 opacity:0;
 transition:opacity 2s ease-in-out;
 }
@@ -89,9 +72,12 @@ transition:opacity 2s ease-in-out;
 /* PROPOSAL */
 #proposalBox{
 position:absolute;
-bottom:16%;
+bottom:18%;
 width:100%;
 }
+
+.yes{background:#ff4d6d;color:white}
+.no{background:white;color:#ff4d6d}
 
 /* POPUPS */
 .popup{
@@ -104,51 +90,40 @@ z-index:2000;
 }
 
 .popup img{
-max-width:92vw;
-max-height:80vh;
+max-width:90vw;
+max-height:90vh;
 object-fit:contain;
-border-radius:18px;
+border-radius:20px;
 box-shadow:0 0 30px rgba(255,0,100,0.6);
 }
 
 /* LETTER */
 #surprise{
 display:none;
-height:calc(var(--vh)*100);
+height:100vh;
 justify-content:center;
 align-items:center;
 flex-direction:column;
-padding:22px;
+padding:20px;
+transform:translateY(-6%);
 z-index:3000;
-overflow:auto;
 }
 
-/* DOUBLE TAP HINT */
-#tapHint{
-display:none;
-position:fixed;
-bottom:20px;
-left:50%;
-transform:translateX(-50%);
-background:rgba(0,0,0,0.6);
-padding:8px 16px;
-border-radius:20px;
-z-index:3500;
-}
-
-/* FINAL */
+/* FINAL SCREEN */
 #finalScreen{
 display:none;
 position:fixed;
 top:0;
 left:0;
 width:100%;
-height:calc(var(--vh)*100);
+height:100%;
 background:url('final.jpg') center/cover no-repeat;
 z-index:4000;
 justify-content:center;
 align-items:center;
 flex-direction:column;
+color:white;
+text-align:center;
 }
 
 /* FIREWORKS */
@@ -164,57 +139,61 @@ z-index:1000;
 
 <body>
 
+<!-- LOCK -->
 <div id="lockScreen">
 <h2>Enter Secret Code ❤️</h2>
 <input type="password" id="pass">
 <button onclick="unlock()">Open</button>
 </div>
 
-<div id="mainSite" style="display:none">
+<!-- MAIN -->
+<div id="mainSite">
 
 <div class="slideshow">
-<div class="slide" style="background-image:url('photo1.jpg')"></div>
-<div class="slide" style="background-image:url('photo2.jpg')"></div>
-<div class="slide" style="background-image:url('photo3.jpg')"></div>
-<div class="slide" style="background-image:url('photo4.jpg')"></div>
+<img src="photo1.jpg">
+<img src="photo2.jpg">
+<img src="photo3.jpg">
+<img src="photo4.jpg">
 </div>
 
 <h1 id="typing"></h1>
 
 <div id="proposalBox">
 <h2>Will you be mine forever? 💍</h2>
-<button onclick="sayYes()">YES ❤️</button>
-<button onmouseover="moveNo(this)">NO</button>
+<button class="yes" onclick="sayYes()">YES ❤️</button>
+<button class="no" onmouseover="moveNo(this)">NO</button>
 </div>
 
 </div>
 
+<!-- POPUPS -->
 <div id="popup1" class="popup"><img src="popup1.jpg"></div>
 <div id="popup2" class="popup"><img src="popup2.jpg"></div>
 
+<!-- LETTER -->
 <div id="surprise">
 <h1>Bhakti ❤️</h1>
-<p>From strangers → classmates → friends → besties → now together forever ❤️</p>
+<p style="max-width:700px;font-size:1.35em;line-height:1.7">
+Hey sorry for today 😔 <br><br>
+Me hang padlo hoto full guddi ne jeva mala bolle propose kar mhnun… So me atta kartoy. 😘 <br><br>
+From strangers → classmates → copy mates 🤭 → friends → besties → now in a relationship…  
+Unexpected, but the best thing that happened to me ❤️ <br><br>
+Now the only thing that matters is keeping you happy, because your happiness makes me happiest 😁 <br><br>
+So just be happy… always… with me ❤️
+</p>
 <h1>I Love You Forever 💖</h1>
+<p style="font-size:0.9em;opacity:0.7">(Tap screen twice ❤️)</p>
 </div>
 
-<div id="tapHint">Tap twice ❤️</div>
-
+<!-- FINAL -->
 <div id="finalScreen">
-<h1>Bhakti ❤️ Omkar</h1>
-<h2>Forever. Always.</h2>
+<h1 style="font-size:3em;text-shadow:0 0 20px black">Bhakti ❤️ Omkar</h1>
+<h2>Forever. Always. Eternal Love.</h2>
 </div>
 
 <canvas id="fireworks"></canvas>
 
 <script>
-
-/* REAL MOBILE HEIGHT FIX */
-function setVH(){
-document.documentElement.style.setProperty('--vh', window.innerHeight * 0.01 + 'px');
-}
-setVH();
-window.addEventListener('resize', setVH);
 
 /* PASSWORD */
 function unlock(){
@@ -223,11 +202,11 @@ document.getElementById("lockScreen").style.display="none";
 document.getElementById("mainSite").style.display="block";
 startTyping();
 startSlideshow();
-}else alert("Wrong password");
+}else alert("Wrong password ❤️");
 }
 
 /* TYPING */
-const text="Bhakti ❤️ Omkar";
+const text="Bhakti ❤️";
 let i=0;
 function startTyping(){
 function type(){
@@ -239,11 +218,11 @@ setTimeout(type,120);
 type();
 }
 
-/* SLIDESHOW BACKGROUND (NO STRETCH) */
-const slides=document.querySelectorAll(".slide");
+/* SLIDESHOW */
+const slides=document.querySelectorAll(".slideshow img");
 let s=0;
-slides[0].style.opacity=1;
 function startSlideshow(){
+slides[0].style.opacity=1;
 setInterval(()=>{
 slides[s].style.opacity=0;
 s=(s+1)%slides.length;
@@ -260,36 +239,62 @@ btn.style.left=Math.random()*80+"%";
 
 /* YES FLOW */
 function sayYes(){
+
 document.getElementById("typing").style.display="none";
 document.getElementById("proposalBox").style.display="none";
-document.getElementById("popup1").style.display="block";
+
+startFireworks();
+
+setTimeout(()=>{document.getElementById("popup1").style.display="block"},1800);
 
 setTimeout(()=>{
 document.getElementById("popup1").style.display="none";
 document.getElementById("popup2").style.display="block";
-},2000);
+},3800);
 
 setTimeout(()=>{
 document.getElementById("popup2").style.display="none";
 document.getElementById("surprise").style.display="flex";
-document.getElementById("tapHint").style.display="block";
-enableDoubleClick();
-},4000);
+enableDoubleClickToClose();
+},5800);
 }
 
-/* DOUBLE TAP */
-let clicks=0;
-function enableDoubleClick(){
-document.body.addEventListener("click",()=>{
-clicks++;
-if(clicks===2){
-document.getElementById("surprise").style.display="none";
-document.getElementById("tapHint").style.display="none";
-document.getElementById("finalScreen").style.display="flex";
+/* DOUBLE CLICK TO CLOSE LETTER */
+let clickCount=0;
+
+function enableDoubleClickToClose(){
+document.body.addEventListener("click",handleClick);
 }
-});
+
+function handleClick(){
+clickCount++;
+if(clickCount===2){
+document.getElementById("surprise").style.display="none";
+document.getElementById("finalScreen").style.display="flex";
+document.body.removeEventListener("click",handleClick);
+}
+}
+
+/* FIREWORKS */
+const fw=document.getElementById("fireworks");
+const ctx=fw.getContext("2d");
+fw.width=window.innerWidth;
+fw.height=window.innerHeight;
+
+function startFireworks(){
+setInterval(()=>{
+const x=Math.random()*fw.width;
+const y=Math.random()*fw.height/2;
+for(let i=0;i<30;i++){
+ctx.beginPath();
+ctx.arc(x+Math.random()*60-30,y+Math.random()*60-30,2,0,Math.PI*2);
+ctx.fillStyle="hsl("+Math.random()*360+",100%,60%)";
+ctx.fill();
+}
+},300);
 }
 
 </script>
+
 </body>
 </html>

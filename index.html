@@ -3,7 +3,6 @@
 <head>
 <meta charset="UTF-8">
 
-<!-- VIEWPORT FIX -->
 <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
 
 <title>Bhakti ❤️ Omkar</title>
@@ -11,6 +10,10 @@
 <link href="https://fonts.googleapis.com/css2?family=Dancing+Script:wght@600&display=swap" rel="stylesheet">
 
 <style>
+:root{
+--vh: 1vh;
+}
+
 body{
 margin:0;
 font-family:'Dancing Script',cursive;
@@ -21,9 +24,9 @@ text-align:center;
 -webkit-tap-highlight-color: transparent;
 }
 
-/* LOCK SCREEN */
+/* LOCK */
 #lockScreen{
-height:100dvh;
+height:calc(var(--vh)*100);
 display:flex;
 flex-direction:column;
 justify-content:center;
@@ -31,6 +34,7 @@ align-items:center;
 padding:20px;
 }
 
+/* INPUT + BUTTON */
 input{
 padding:14px;
 border-radius:20px;
@@ -55,27 +59,29 @@ min-width:120px;
 #typing{
 font-size:clamp(1.8rem,6vw,3rem);
 margin-top:28vh;
+z-index:10;
+position:relative;
 }
 
-/* SLIDESHOW — ASPECT RATIO FIX */
+/* SLIDESHOW — PERFECT RATIO */
 .slideshow{
 position:fixed;
 top:0;
 left:0;
 width:100vw;
-height:100dvh;
+height:calc(var(--vh)*100);
 z-index:-1;
 overflow:hidden;
 }
 
-.slideshow img{
+.slide{
 position:absolute;
 top:0;
 left:0;
 width:100%;
 height:100%;
-object-fit:cover;
-object-position:center;
+background-size:cover;
+background-position:center;
 opacity:0;
 transition:opacity 2s ease-in-out;
 }
@@ -108,7 +114,7 @@ box-shadow:0 0 30px rgba(255,0,100,0.6);
 /* LETTER */
 #surprise{
 display:none;
-height:100dvh;
+height:calc(var(--vh)*100);
 justify-content:center;
 align-items:center;
 flex-direction:column;
@@ -125,10 +131,8 @@ bottom:20px;
 left:50%;
 transform:translateX(-50%);
 background:rgba(0,0,0,0.6);
-color:#fff;
 padding:8px 16px;
 border-radius:20px;
-font-size:0.95rem;
 z-index:3500;
 }
 
@@ -139,7 +143,7 @@ position:fixed;
 top:0;
 left:0;
 width:100%;
-height:100dvh;
+height:calc(var(--vh)*100);
 background:url('final.jpg') center/cover no-repeat;
 z-index:4000;
 justify-content:center;
@@ -160,21 +164,19 @@ z-index:1000;
 
 <body>
 
-<!-- LOCK -->
 <div id="lockScreen">
 <h2>Enter Secret Code ❤️</h2>
 <input type="password" id="pass">
 <button onclick="unlock()">Open</button>
 </div>
 
-<!-- MAIN -->
 <div id="mainSite" style="display:none">
 
 <div class="slideshow">
-<img src="photo1.jpg">
-<img src="photo2.jpg">
-<img src="photo3.jpg">
-<img src="photo4.jpg">
+<div class="slide" style="background-image:url('photo1.jpg')"></div>
+<div class="slide" style="background-image:url('photo2.jpg')"></div>
+<div class="slide" style="background-image:url('photo3.jpg')"></div>
+<div class="slide" style="background-image:url('photo4.jpg')"></div>
 </div>
 
 <h1 id="typing"></h1>
@@ -187,35 +189,32 @@ z-index:1000;
 
 </div>
 
-<!-- POPUPS -->
 <div id="popup1" class="popup"><img src="popup1.jpg"></div>
 <div id="popup2" class="popup"><img src="popup2.jpg"></div>
 
-<!-- LETTER -->
 <div id="surprise">
 <h1>Bhakti ❤️</h1>
-<p style="max-width:700px;font-size:1.2rem;line-height:1.7">
-Hey sorry for today 😔<br><br>
-Me hang padlo hoto full guddi ne jeva mala bolle propose kar mhnun… So me atta kartoy. 😘<br><br>
-From strangers → classmates → copy mates → friends → besties → now in a relationship.  
-Unexpected, but the best thing that happened to me ❤️<br><br>
-Now the only thing that matters is keeping you happy, because your happiness makes me happiest 😁<br><br>
-So just be happy… always… with me ❤️
-</p>
+<p>From strangers → classmates → friends → besties → now together forever ❤️</p>
 <h1>I Love You Forever 💖</h1>
 </div>
 
-<div id="tapHint">Tap anywhere twice ❤️</div>
+<div id="tapHint">Tap twice ❤️</div>
 
-<!-- FINAL -->
 <div id="finalScreen">
 <h1>Bhakti ❤️ Omkar</h1>
-<h2>Forever. Always. Eternal Love.</h2>
+<h2>Forever. Always.</h2>
 </div>
 
 <canvas id="fireworks"></canvas>
 
 <script>
+
+/* REAL MOBILE HEIGHT FIX */
+function setVH(){
+document.documentElement.style.setProperty('--vh', window.innerHeight * 0.01 + 'px');
+}
+setVH();
+window.addEventListener('resize', setVH);
 
 /* PASSWORD */
 function unlock(){
@@ -224,7 +223,7 @@ document.getElementById("lockScreen").style.display="none";
 document.getElementById("mainSite").style.display="block";
 startTyping();
 startSlideshow();
-}else alert("Wrong password ❤️");
+}else alert("Wrong password");
 }
 
 /* TYPING */
@@ -240,11 +239,11 @@ setTimeout(type,120);
 type();
 }
 
-/* SLIDESHOW */
-const slides=document.querySelectorAll(".slideshow img");
+/* SLIDESHOW BACKGROUND (NO STRETCH) */
+const slides=document.querySelectorAll(".slide");
 let s=0;
-function startSlideshow(){
 slides[0].style.opacity=1;
+function startSlideshow(){
 setInterval(()=>{
 slides[s].style.opacity=0;
 s=(s+1)%slides.length;
@@ -259,72 +258,36 @@ btn.style.top=Math.random()*80+"%";
 btn.style.left=Math.random()*80+"%";
 }
 
-/* FIREWORKS */
-const fw=document.getElementById("fireworks");
-const ctx=fw.getContext("2d");
-fw.width=window.innerWidth;
-fw.height=window.innerHeight;
-
-let fireInterval=null;
-
-function startFireworks(){
-if(fireInterval) return;
-fireInterval=setInterval(()=>{
-const x=Math.random()*fw.width;
-const y=Math.random()*fw.height/2;
-for(let i=0;i<30;i++){
-ctx.beginPath();
-ctx.arc(x+Math.random()*60-30,y+Math.random()*60-30,2,0,Math.PI*2);
-ctx.fillStyle="hsl("+Math.random()*360+",100%,60%)";
-ctx.fill();
-}
-},300);
-}
-
-function stopFireworks(){
-if(fireInterval){
-clearInterval(fireInterval);
-fireInterval=null;
-}
-ctx.clearRect(0,0,fw.width,fw.height);
-}
-
 /* YES FLOW */
 function sayYes(){
 document.getElementById("typing").style.display="none";
 document.getElementById("proposalBox").style.display="none";
-startFireworks();
-
-setTimeout(()=>{document.getElementById("popup1").style.display="block"},1800);
+document.getElementById("popup1").style.display="block";
 
 setTimeout(()=>{
 document.getElementById("popup1").style.display="none";
 document.getElementById("popup2").style.display="block";
-},3800);
+},2000);
 
 setTimeout(()=>{
 document.getElementById("popup2").style.display="none";
-stopFireworks();
 document.getElementById("surprise").style.display="flex";
 document.getElementById("tapHint").style.display="block";
 enableDoubleClick();
-},5800);
+},4000);
 }
 
 /* DOUBLE TAP */
 let clicks=0;
 function enableDoubleClick(){
-document.body.addEventListener("click",handleTap);
-}
-
-function handleTap(){
+document.body.addEventListener("click",()=>{
 clicks++;
 if(clicks===2){
 document.getElementById("surprise").style.display="none";
 document.getElementById("tapHint").style.display="none";
 document.getElementById("finalScreen").style.display="flex";
-document.body.removeEventListener("click",handleTap);
 }
+});
 }
 
 </script>

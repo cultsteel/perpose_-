@@ -15,10 +15,9 @@ background:black;
 color:white;
 overflow:hidden;
 text-align:center;
--webkit-tap-highlight-color: transparent;
 }
 
-/* LOCK SCREEN */
+/* LOCK */
 #lockScreen{
 height:100vh;
 display:flex;
@@ -48,9 +47,9 @@ cursor:pointer;
 min-width:120px;
 }
 
-/* FIRST TEXT */
+/* TEXT */
 #typing{
-font-size:clamp(1.8rem,6vw,3rem);
+font-size:clamp(1.8rem, 6vw, 3rem);
 margin-top:28vh;
 }
 
@@ -110,21 +109,6 @@ flex-direction:column;
 padding:22px;
 z-index:3000;
 overflow:auto;
-}
-
-/* DOUBLE TAP HINT */
-#tapHint{
-display:none;
-position:fixed;
-bottom:20px;
-left:50%;
-transform:translateX(-50%);
-background:rgba(0,0,0,0.6);
-color:#fff;
-padding:8px 16px;
-border-radius:20px;
-font-size:0.95rem;
-z-index:3500;
 }
 
 /* FINAL */
@@ -198,9 +182,8 @@ Now the only thing that matters is keeping you happy, because your happiness mak
 So just be happy… always… with me ❤️
 </p>
 <h1>I Love You Forever 💖</h1>
+<p>(Tap screen twice ❤️)</p>
 </div>
-
-<div id="tapHint">Tap anywhere twice ❤️</div>
 
 <!-- FINAL -->
 <div id="finalScreen">
@@ -255,16 +238,16 @@ btn.style.left=Math.random()*80+"%";
 }
 
 /* FIREWORKS */
-const fw=document.getElementById("fireworks");
-const ctx=fw.getContext("2d");
-fw.width=window.innerWidth;
-fw.height=window.innerHeight;
+const fw = document.getElementById("fireworks");
+const ctx = fw.getContext("2d");
+fw.width = window.innerWidth;
+fw.height = window.innerHeight;
 
-let fireInterval=null;
+let fireInterval = null;
 
 function startFireworks(){
 if(fireInterval) return;
-fireInterval=setInterval(()=>{
+fireInterval = setInterval(()=>{
 const x=Math.random()*fw.width;
 const y=Math.random()*fw.height/2;
 for(let i=0;i<30;i++){
@@ -288,6 +271,7 @@ ctx.clearRect(0,0,fw.width,fw.height);
 function sayYes(){
 document.getElementById("typing").style.display="none";
 document.getElementById("proposalBox").style.display="none";
+
 startFireworks();
 
 setTimeout(()=>{document.getElementById("popup1").style.display="block"},1800);
@@ -301,27 +285,23 @@ setTimeout(()=>{
 document.getElementById("popup2").style.display="none";
 stopFireworks();
 document.getElementById("surprise").style.display="flex";
-document.getElementById("tapHint").style.display="block";
 enableDoubleClick();
 },5800);
 }
 
-/* DOUBLE TAP */
+/* DOUBLE CLICK */
 let clicks=0;
 function enableDoubleClick(){
-document.body.addEventListener("click",handleTap);
-}
-
-function handleTap(){
+document.body.addEventListener("click",()=>{
 clicks++;
 if(clicks===2){
 document.getElementById("surprise").style.display="none";
-document.getElementById("tapHint").style.display="none";
 document.getElementById("finalScreen").style.display="flex";
-document.body.removeEventListener("click",handleTap);
 }
+});
 }
 
 </script>
+
 </body>
 </html>
